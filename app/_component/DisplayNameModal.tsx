@@ -6,8 +6,8 @@ import toast from "react-hot-toast";
 Modal.setAppElement("#my-browser-window");
 
 const DisplayNameModal: React.FC = () => {
-  const { setDisplayName } = useContext(DisplayNameContext)!;
-  const [name, setName] = useState("");
+  const { displayName, setDisplayName } = useContext(DisplayNameContext)!;
+  const [name, setName] = useState(displayName?.val ?? "");
   const [modalIsOpen, setModalIsOpen] = useState(true);
 
   const handleSave = () => {
