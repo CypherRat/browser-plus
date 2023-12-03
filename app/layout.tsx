@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { DisplayNameProvider } from "./_context/DisplayName";
 import UILayout from "./(ui)/layout";
+import { Toaster } from "react-hot-toast";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Browser Plus",
@@ -18,8 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className} id="my-browser-window">
+      <body className={poppins.className} id="my-browser-window">
         <DisplayNameProvider>
+          <Toaster />
           <UILayout>{children}</UILayout>
         </DisplayNameProvider>
       </body>
