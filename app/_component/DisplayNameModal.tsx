@@ -35,7 +35,7 @@ const DisplayNameModal: React.FC = () => {
         toast.success("Successfully skipped display name");
         setModalIsOpen(false);
       } else {
-        toast.error("You cancelled skipping display name");
+        toast.error("Cancelled skipping name");
       }
     }
   };

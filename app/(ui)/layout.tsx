@@ -9,7 +9,7 @@ export default function UILayout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => setIsHydrated(true), []);
 
-  if (!displayName || !displayName.isNameAvailable) {
+  if (!displayName || displayName.isNameSkipped) {
     return <DisplayNameModal />;
   }
 
