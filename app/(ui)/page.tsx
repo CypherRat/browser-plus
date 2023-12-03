@@ -12,7 +12,7 @@ export default function Home() {
   };
   return (
     <section>
-      Welcome {displayName?.val ?? "user"}!
+      Welcome {displayName?.val ?? "Pal"}!
       <div className="btn" onClick={appearToast}>
         Open toast
       </div>
