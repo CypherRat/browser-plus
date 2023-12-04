@@ -12,12 +12,12 @@ export default function Home() {
     toast.success("Hello Darkness!");
   };
   return (
-    <section>
-      Welcome {displayName?.val ?? "Pal"}!
+    <section className="p-4">
+      <h1 className="text-lg">Welcome {displayName?.val ?? "Pal"}!</h1>
       <div className="btn" onClick={appearToast}>
         Open toast
       </div>
-      <Link href="/settings">Settings</Link>
+      <Link href="settings">Settings</Link>
     </section>
   );
 }

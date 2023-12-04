@@ -130,7 +130,7 @@ export default function Settings() {
     <DisplayNameModal supportingBoolFn={setChangeNameStatus} />
   ) : (
     <div className="p-4 md:px-20 lg:px-40 md:py-12">
-      <Link href="./" className="text-gray-400 lg:sticky lg:top-4">
+      <Link href="/" className="text-gray-400 lg:sticky lg:top-4">
         <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
         Go Back
       </Link>
