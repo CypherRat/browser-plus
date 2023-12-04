@@ -5,10 +5,20 @@ import toast from "react-hot-toast";
 
 Modal.setAppElement("#my-browser-window");
 
-const DisplayNameModal: React.FC = () => {
+interface DisplayNameModalProps {
+  supportingBoolFn?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const DisplayNameModal: React.FC<DisplayNameModalProps> = ({
+  supportingBoolFn,
+}) => {
   const { displayName, setDisplayName } = useContext(DisplayNameContext)!;
   const [name, setName] = useState(displayName?.val ?? "");
   const [modalIsOpen, setModalIsOpen] = useState(true);
+
+  const workSupportingBookFn = (boolState: boolean) => {
+    if (supportingBoolFn) supportingBoolFn(boolState);
+  };
 
   const handleSave = () => {
     if (name.length) {
@@ -16,6 +26,7 @@ const DisplayNameModal: React.FC = () => {
       setDisplayName(jsonBucket);
       toast.success("Successfully saved display name");
       setModalIsOpen(false);
+      workSupportingBookFn(false);
     } else {
       toast.error("Display name is required on save");
     }
@@ -26,6 +37,7 @@ const DisplayNameModal: React.FC = () => {
     if (name.trim().length === 0) {
       setDisplayName(jsonBucket);
       setModalIsOpen(false);
+      workSupportingBookFn(false);
     } else {
       const isSkipConfirm = confirm(
         "You have provided a name, do you still want to skip?"
@@ -34,6 +46,7 @@ const DisplayNameModal: React.FC = () => {
         setDisplayName(jsonBucket);
         toast.success("Successfully skipped display name");
         setModalIsOpen(false);
+        workSupportingBookFn(false);
       } else {
         toast.error("Cancelled skipping name");
       }
