@@ -17,7 +17,9 @@ export default function Home() {
       <div className="btn" onClick={appearToast}>
         Open toast
       </div>
-      <Link href="settings">Settings</Link>
+      <Link href="/settings" legacyBehavior passHref>
+        <a>Settings</a>
+      </Link>
     </section>
   );
 }
