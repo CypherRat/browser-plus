@@ -2,6 +2,7 @@
 import { useContext } from "react";
 import { DisplayNameContext } from "../_context/DisplayName";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 export default function Home() {
   const { displayName } = useContext(DisplayNameContext)!;
@@ -16,6 +17,7 @@ export default function Home() {
       <div className="btn" onClick={appearToast}>
         Open toast
       </div>
+      <Link href="/settings">Settings</Link>
     </section>
   );
 }
