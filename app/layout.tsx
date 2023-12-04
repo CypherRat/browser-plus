@@ -4,7 +4,10 @@ import "./globals.css";
 import { DisplayNameProvider } from "./_context/DisplayName";
 import UILayout from "./(ui)/layout";
 import { Toaster } from "react-hot-toast";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config as faConfig } from "@fortawesome/fontawesome-svg-core";
 
+faConfig.autoAddCss = false;
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
