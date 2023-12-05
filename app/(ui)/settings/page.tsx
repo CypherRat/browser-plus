@@ -15,12 +15,26 @@ import { Switch } from "@headlessui/react";
 import DisplayNameModal from "@/app/_component/DisplayNameModal";
 import { CustomListbox, DialogModal, SettingRow } from "./_utils";
 import toast from "react-hot-toast";
-import { clockVals, dateTimeFormatVals, yesNoVals } from "./_constants";
+import {
+  clockVals,
+  dateTimeFormatVals,
+  searchEngineVals,
+  yesNoVals,
+} from "./_constants";
+import { SettingsContext } from "@/app/_context/Settings";
+import { initialSettings } from "@/app/_shared/constants";
+import {
+  isValidImportStructure,
+  updateNestedObject,
+} from "@/app/_shared/utils";
 
 export default function Settings() {
   const { displayName } = useContext(DisplayNameContext)!;
+  const { settings, setSettings } = useContext(SettingsContext)!;
 
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(
+    settings?.settings?.darkMode ?? true
+  );
   const [changeNameStatus, setChangeNameStatus] = useState(false);
 
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
@@ -49,16 +63,6 @@ export default function Settings() {
     setSelectedFile(event.target.files[0]);
   };
 
-  const isValidStructure = (obj: any) => {
-    return (
-      obj &&
-      obj.settings &&
-      typeof obj.settings.darkMode === "boolean" &&
-      obj.settings.cards &&
-      typeof obj.settings.cards.val === "string"
-    );
-  };
-
   const handleImport = () => {
     if (selectedFile) {
       const overrideSettings = confirm(
@@ -69,9 +73,8 @@ export default function Settings() {
         reader.onload = function (event: any) {
           try {
             const json = JSON.parse(event.target.result);
-            if (isValidStructure(json)) {
-              // localStorage.setItem("settings", JSON.stringify(json));
-              console.log("settings", JSON.stringify(json));
+            if (isValidImportStructure(json)) {
+              setSettings(json);
               toast.success("Successfully imported settings");
               setIsImportModalOpen(false);
             } else {
@@ -100,7 +103,6 @@ export default function Settings() {
 
   const handleExport = () => {
     if (exportFileName.trim().length) {
-      const settings = { settings: { darkMode: true, cards: { val: "none" } } };
       const dataStr =
         "data:text/json;charset=utf-8," +
         encodeURIComponent(JSON.stringify(settings));
@@ -118,28 +120,39 @@ export default function Settings() {
     }
   };
 
-  const handleDarkModeToggle = () => {
-    setDarkMode(!darkMode);
+  const handleDarkModeToggle = (mode: boolean) => {
+    setDarkMode(mode);
+    const updatedSettings = updateNestedObject(
+      settings,
+      "settings.darkMode",
+      mode
+    );
+    setSettings(updatedSettings);
   };
 
   const handleNameChange = () => {
     setChangeNameStatus(true);
   };
 
+  const handleResetSettings = () => {
+    const confirmDeleteSettings = confirm(
+      "Are you sure that you want to reset settings? Resetting will completely remove your customizations."
+    );
+    if (confirmDeleteSettings) {
+      setSettings(initialSettings);
+      toast.success("Successfully reset settings");
+    } else {
+      toast.error("Settings reset cancelled");
+    }
+  };
+
   return changeNameStatus ? (
     <DisplayNameModal supportingBoolFn={setChangeNameStatus} />
   ) : (
     <div className="p-4 md:px-20 lg:px-40 md:py-12">
-      <Link
-        href="/"
-        className="text-gray-400 lg:sticky lg:top-4"
-        legacyBehavior
-        passHref
-      >
-        <a>
-          <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-          Go Back
-        </a>
+      <Link href="/" className="text-gray-400 lg:sticky lg:top-4">
+        <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+        Go Back
       </Link>
       <h1
         ref={headingRef}
@@ -167,7 +180,7 @@ export default function Settings() {
         <SettingRow title="Dark Mode" tooltipTitle="Default is Dark Mode.">
           <Switch
             checked={darkMode}
-            onChange={setDarkMode}
+            onChange={handleDarkModeToggle}
             className={`${
               darkMode ? "bg-blue-600" : "bg-gray-200"
             } relative inline-flex items-center h-6 rounded-full w-11 transition-colors duration-200 ease-in-out`}
@@ -181,13 +194,25 @@ export default function Settings() {
           </Switch>
         </SettingRow>
         <SettingRow title="Clock">
-          <CustomListbox options={clockVals} />
+          <CustomListbox options={clockVals} keyName="clock" />
+        </SettingRow>
+        <SettingRow
+          title="Search Engine"
+          tooltipTitle="Select the search engine you want to use for search"
+        >
+          <CustomListbox
+            options={searchEngineVals}
+            keyName="defaultSearchEngine"
+          />
         </SettingRow>
         <SettingRow title="Datetime Format">
-          <CustomListbox options={dateTimeFormatVals} />
+          <CustomListbox
+            options={dateTimeFormatVals}
+            keyName="dateTimeFormat"
+          />
         </SettingRow>
         <SettingRow title="Focus Mode">
-          <CustomListbox options={yesNoVals} />
+          <CustomListbox options={yesNoVals} keyName="focusMode" />
         </SettingRow>
         <SettingRow
           title="Cards"
@@ -221,7 +246,7 @@ export default function Settings() {
         </SettingRow>
         <SettingRow title="Reset/ Repair">
           <button
-            onClick={() => {}}
+            onClick={handleResetSettings}
             className="bg-red-700 hover:bg-red-900 text-white text-sm font-bold py-2 px-4 rounded"
           >
             <FontAwesomeIcon icon={faWrench} className="mr-2" />
