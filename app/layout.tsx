@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { DisplayNameProvider } from "./_context/DisplayName";
+import { SettingsProvider } from "./_context/Settings";
 import UILayout from "./(ui)/layout";
 import { Toaster } from "react-hot-toast";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -23,10 +24,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className} id="my-browser-window">
-        <DisplayNameProvider>
-          <Toaster />
-          <UILayout>{children}</UILayout>
-        </DisplayNameProvider>
+        <SettingsProvider>
+          <DisplayNameProvider>
+            <Toaster />
+            <UILayout>{children}</UILayout>
+          </DisplayNameProvider>
+        </SettingsProvider>
       </body>
     </html>
   );
