@@ -3,9 +3,11 @@ import { useContext } from "react";
 import { DisplayNameContext } from "../_context/DisplayName";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { SettingsContext } from "../_context/Settings";
 
 export default function Home() {
   const { displayName } = useContext(DisplayNameContext)!;
+  const { settings } = useContext(SettingsContext)!;
   console.log(displayName, "ad");
 
   const appearToast = () => {
@@ -17,9 +19,7 @@ export default function Home() {
       <div className="btn" onClick={appearToast}>
         Open toast
       </div>
-      <Link href="/settings" legacyBehavior passHref>
-        <a>Settings</a>
-      </Link>
+      <Link href="/settings">Settings</Link>
     </section>
   );
 }
