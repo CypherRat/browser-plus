@@ -8,6 +8,9 @@ import {
   faUpload,
   faDownload,
   faWrench,
+  faAdd,
+  faTable,
+  faLink,
 } from "@fortawesome/free-solid-svg-icons";
 import { DisplayNameContext } from "@/app/_context/DisplayName";
 import Link from "next/link";
@@ -27,6 +30,7 @@ import {
   isValidImportStructure,
   updateNestedObject,
 } from "@/app/_shared/utils";
+import Button from "@/app/_component/Button";
 
 export default function Settings() {
   const { displayName } = useContext(DisplayNameContext)!;
@@ -218,40 +222,75 @@ export default function Settings() {
           title="Cards"
           tooltipTitle="Cards are the main blocks visible to the screen."
         >
-          Add Cards
+          <div className="cards-wrap flex flex-row flex-wrap gap-4">
+            <Button icon={faAdd} variant="warning" direction="column">
+              Add Cards
+            </Button>
+            <Button
+              count={settings?.settings?.cards?.length ?? 0}
+              icon={faTable}
+              variant="detail"
+              type="tab"
+              direction="column"
+            >
+              View Cards
+            </Button>
+          </div>
         </SettingRow>
         <SettingRow
           title="Links"
           tooltipTitle="Add links to websites that you use the most."
         >
-          Add Links
+          <div className="cards-wrap flex flex-row flex-wrap gap-4">
+            <Button icon={faAdd} variant="success" direction="column">
+              Add Links
+            </Button>
+            <Button
+              count={settings?.settings?.links?.length ?? 0}
+              icon={faLink}
+              variant="detail"
+              type="tab"
+              direction="column"
+            >
+              View Cards
+            </Button>
+          </div>
         </SettingRow>
         <SettingRow title="Import Settings">
-          <button
+          <Button icon={faUpload} onClick={() => setIsImportModalOpen(true)}>
+            Import
+          </Button>
+          {/* <button
             onClick={() => setIsImportModalOpen(true)}
             className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
           >
             <FontAwesomeIcon icon={faUpload} className="mr-2" />
             Import
-          </button>
+          </button> */}
         </SettingRow>
         <SettingRow title="Export Settings">
-          <button
+          <Button icon={faDownload} onClick={() => setIsExportModalOpen(true)}>
+            Export
+          </Button>
+          {/* <button
             onClick={() => setIsExportModalOpen(true)}
             className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
           >
             <FontAwesomeIcon icon={faDownload} className="mr-2" />
             Export
-          </button>
+          </button> */}
         </SettingRow>
         <SettingRow title="Reset/ Repair">
-          <button
+          <Button icon={faWrench} variant="error" onClick={handleResetSettings}>
+            Reset Settings
+          </Button>
+          {/* <button
             onClick={handleResetSettings}
             className="bg-red-700 hover:bg-red-900 text-white text-sm font-bold py-2 px-4 rounded"
           >
             <FontAwesomeIcon icon={faWrench} className="mr-2" />
             Reset Settings
-          </button>
+          </button> */}
         </SettingRow>
         <SettingRow title="About">
           <div className="flex flex-row gap-2 items-center flex-wrap">
