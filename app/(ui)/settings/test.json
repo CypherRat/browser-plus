@@ -1,0 +1,18 @@
+{
+  "settings": {
+    "darkMode": false,
+    "clock": "Analog",
+    "dateTimeFormat": "12hr",
+    "focusMode": "Yes",
+    "defaultSearchEngine": "Yahoo",
+    "cards": [
+      {
+        "id": 1,
+        "title": null,
+        "description": null,
+        "urls": [{ "id": 1, "title": null, "url": null }]
+      }
+    ],
+    "links": [{ "id": 1, "title": null, "url": null }]
+  }
+}

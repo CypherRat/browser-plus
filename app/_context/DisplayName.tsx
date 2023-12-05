@@ -2,6 +2,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { parseCookies, setCookie } from "nookies";
 import useLocalStorage from "../_hook/useLocalStorage";
+import { initialDisplayName } from "../_shared/constants";
 
 interface DisplayNameContextProps {
   displayName: any;
@@ -17,11 +18,14 @@ export const DisplayNameProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const [isClient, setIsClient] = useState(false);
   // const [displayName, _setDisplayName] = useState("");
-  const [displayName, setDisplayName] = useLocalStorage("displayName");
+  const [displayName, setDisplayName] = useLocalStorage(
+    "displayName",
+    initialDisplayName
+  );
   // const initialDisplayName = parseCookies().displayName || "";
   // const [displayName, _setDisplayName] = useState(initialDisplayName);
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);

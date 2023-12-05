@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState, useEffect } from "react";
 import { Dialog, Transition, Listbox } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,6 +7,8 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "@/app/_component/Tooltip";
+import { SettingsContext } from "@/app/_context/Settings";
+import { getValueFromObject, updateNestedObject } from "@/app/_shared/utils";
 
 interface SettingRowInterface {
   title: string;
@@ -22,7 +24,13 @@ interface DialogModalInterface {
 }
 
 interface ListBoxInterface {
+  keyName: string;
   options: any[];
+}
+
+interface OptionProps {
+  label: string;
+  disabled: boolean;
 }
 
 export const SettingRow: React.FC<SettingRowInterface> = ({
@@ -44,14 +52,42 @@ export const SettingRow: React.FC<SettingRowInterface> = ({
   </div>
 );
 
-export const CustomListbox: React.FC<ListBoxInterface> = ({ options }) => {
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+export const CustomListbox: React.FC<ListBoxInterface> = ({
+  keyName,
+  options,
+}) => {
+  const { settings, setSettings } = useContext(SettingsContext)!;
+  const [selectedOption, setSelectedOption] = useState<OptionProps | null>(
+    null
+  );
+
+  const handleOptionUpdate = (opts: any) => {
+    setSelectedOption(opts);
+    if (opts?.label) {
+      const keyPath = `settings.${keyName}`;
+      const newSettings = updateNestedObject(settings, keyPath, opts.label);
+      setSettings(newSettings);
+    }
+  };
+
+  useEffect(() => {
+    const storedValue = getValueFromObject(settings?.settings, keyName);
+    if (storedValue) {
+      const matchingOption = options.find(
+        (option) => option.label === storedValue
+      );
+      setSelectedOption(matchingOption);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <Listbox value={selectedOption} onChange={setSelectedOption}>
+    <Listbox value={selectedOption} onChange={handleOptionUpdate}>
       <div className="relative">
         <Listbox.Button className="relative text-black cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-          <span className="block truncate">{selectedOption.label}</span>
+          <span className="block truncate">
+            {selectedOption ? selectedOption.label : "No Options"}
+          </span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <FontAwesomeIcon
               icon={faChevronDown}
