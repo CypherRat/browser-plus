@@ -1,4 +1,8 @@
-import { InitialDisplayName, InitialSettings } from "./types";
+import {
+  ConfirmDialogProps,
+  InitialDisplayName,
+  InitialSettings,
+} from "./types";
 
 export const initialSettings: InitialSettings = {
   settings: {
@@ -52,4 +56,10 @@ export const settingsImportDataStructure = {
       },
     },
   },
+};
+
+export const defaultConfirmDialogSetup: ConfirmDialogProps = {
+  isOpen: false,
+  description: null,
+  onAccept: () => {},
 };
