@@ -34,3 +34,9 @@ export interface InitialDisplayName {
   isNameSkipped: boolean;
   val: string | null;
 }
+
+export interface ConfirmDialogProps {
+  isOpen: boolean;
+  description?: string | null;
+  onAccept: () => void;
+}

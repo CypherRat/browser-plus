@@ -27,13 +27,13 @@ const Button: React.FC<ButtonProps> = ({
     type === "filled" ? "text-white" : "text-white bg-transparent border";
   const variantStyles = {
     success:
-      "bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600",
-    error: "bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600",
-    info: "bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600",
+      "bg-green-500 border-green-500 hover:bg-green-700 hover:border-green-700",
+    error: "bg-red-500 border-red-500 hover:bg-red-700 hover:border-red-700",
+    info: "bg-blue-500 border-blue-500 hover:bg-blue-700 hover:border-blue-700",
     warning:
-      "bg-yellow-500 border-yellow-500 hover:bg-yellow-600 hover:border-yellow-600",
+      "bg-yellow-500 border-yellow-500 hover:bg-yellow-700 hover:border-yellow-700",
     detail:
-      "bg-gray-500 border-gray-500 hover:bg-gray-600 hover:border-gray-600",
+      "bg-gray-500 border-gray-500 hover:bg-gray-700 hover:border-gray-700",
   };
   const flexDirection = direction === "row" ? "flex-row" : "flex-col";
 

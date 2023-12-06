@@ -16,7 +16,12 @@ import { DisplayNameContext } from "@/app/_context/DisplayName";
 import Link from "next/link";
 import { Switch } from "@headlessui/react";
 import DisplayNameModal from "@/app/_component/DisplayNameModal";
-import { CustomListbox, DialogModal, SettingRow } from "./_utils";
+import {
+  ConfirmDialog,
+  CustomListbox,
+  DialogModal,
+  SettingRow,
+} from "./_utils";
 import toast from "react-hot-toast";
 import {
   clockVals,
@@ -25,12 +30,16 @@ import {
   yesNoVals,
 } from "./_constants";
 import { SettingsContext } from "@/app/_context/Settings";
-import { initialSettings } from "@/app/_shared/constants";
+import {
+  defaultConfirmDialogSetup,
+  initialSettings,
+} from "@/app/_shared/constants";
 import {
   isValidImportStructure,
   updateNestedObject,
 } from "@/app/_shared/utils";
 import Button from "@/app/_component/Button";
+import { ConfirmDialogProps } from "@/app/_shared/types";
 
 export default function Settings() {
   const { displayName } = useContext(DisplayNameContext)!;
@@ -40,6 +49,9 @@ export default function Settings() {
     settings?.settings?.darkMode ?? true
   );
   const [changeNameStatus, setChangeNameStatus] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState<ConfirmDialogProps>(
+    defaultConfirmDialogSetup
+  );
 
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
@@ -69,10 +81,13 @@ export default function Settings() {
 
   const handleImport = () => {
     if (selectedFile) {
-      const overrideSettings = confirm(
-        "Importing will override your current settings or you may export before you import to save a copy of your settings. Are you sure you want to do that?"
-      );
-      if (overrideSettings) {
+      setSelectedFile(null);
+      setIsImportModalOpen(false);
+      // const overrideSettings = confirm(
+      //   "Importing will override your current settings or you may export before you import to save a copy of your settings. Are you sure you want to do that?"
+      // );
+
+      const importSettings = () => {
         const reader = new FileReader();
         reader.onload = function (event: any) {
           try {
@@ -80,22 +95,51 @@ export default function Settings() {
             if (isValidImportStructure(json)) {
               setSettings(json);
               toast.success("Successfully imported settings");
-              setIsImportModalOpen(false);
+              // setIsImportModalOpen(false);
             } else {
-              toast.error("JSON file is corrupted or invalid");
+              toast.error("Import file is invalid or corrupted");
               console.error("Invalid JSON file structure");
             }
           } catch (error) {
-            toast.error("Invalid JSON file");
+            toast.error("Invalid import file");
             console.error("Invalid JSON file:", error);
           }
         };
         reader.readAsText(selectedFile);
-      } else {
-        toast("Import Cancelled!", {
-          icon: "❌",
-        });
-      }
+      };
+
+      setConfirmDialog({
+        isOpen: true,
+        description:
+          "Importing will override your current settings so you may export before you import to save a copy of your current settings.",
+        onAccept: importSettings,
+      });
+
+      // if (overrideSettings) {
+      //   importSettings();
+      //   // const reader = new FileReader();
+      //   // reader.onload = function (event: any) {
+      //   //   try {
+      //   //     const json = JSON.parse(event.target.result);
+      //   //     if (isValidImportStructure(json)) {
+      //   //       setSettings(json);
+      //   //       toast.success("Successfully imported settings");
+      //   //       setIsImportModalOpen(false);
+      //   //     } else {
+      //   //       toast.error("JSON file is corrupted or invalid");
+      //   //       console.error("Invalid JSON file structure");
+      //   //     }
+      //   //   } catch (error) {
+      //   //     toast.error("Invalid JSON file");
+      //   //     console.error("Invalid JSON file:", error);
+      //   //   }
+      //   // };
+      //   // reader.readAsText(selectedFile);
+      // } else {
+      //   toast("Import Cancelled!", {
+      //     icon: "❌",
+      //   });
+      // }
     } else {
       toast.error("No file selected");
     }
@@ -139,15 +183,25 @@ export default function Settings() {
   };
 
   const handleResetSettings = () => {
-    const confirmDeleteSettings = confirm(
-      "Are you sure that you want to reset settings? Resetting will completely remove your customizations."
-    );
-    if (confirmDeleteSettings) {
+    const resetSettings = () => {
       setSettings(initialSettings);
       toast.success("Successfully reset settings");
-    } else {
-      toast.error("Settings reset cancelled");
-    }
+    };
+    setConfirmDialog({
+      isOpen: true,
+      description:
+        "Resetting settings will completely remove your customizations.",
+      onAccept: resetSettings,
+    });
+    // const confirmDeleteSettings = confirm(
+    //   "Are you sure that you want to reset settings? Resetting will completely remove your customizations."
+    // );
+    // if (confirmDeleteSettings) {
+    //   setSettings(initialSettings);
+    //   toast.success("Successfully reset settings");
+    // } else {
+    //   toast.error("Settings reset cancelled");
+    // }
   };
 
   return changeNameStatus ? (
@@ -348,6 +402,12 @@ export default function Settings() {
             </button>
           </div>
         </DialogModal>
+        <ConfirmDialog
+          isOpen={confirmDialog?.isOpen}
+          description={confirmDialog?.description}
+          setConfirmDialog={setConfirmDialog}
+          onAccept={confirmDialog?.onAccept}
+        />
       </div>
     </div>
   );

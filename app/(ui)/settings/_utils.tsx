@@ -9,6 +9,8 @@ import {
 import Tooltip from "@/app/_component/Tooltip";
 import { SettingsContext } from "@/app/_context/Settings";
 import { getValueFromObject, updateNestedObject } from "@/app/_shared/utils";
+import { ConfirmDialogProps } from "@/app/_shared/types";
+import { defaultConfirmDialogSetup } from "@/app/_shared/constants";
 
 interface SettingRowInterface {
   title: string;
@@ -21,6 +23,13 @@ interface DialogModalInterface {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   title: string;
   children: React.ReactNode;
+}
+
+interface ConfirmDialogInterface {
+  isOpen: boolean;
+  setConfirmDialog: React.Dispatch<React.SetStateAction<ConfirmDialogProps>>;
+  onAccept: () => void;
+  description?: string | null;
 }
 
 interface ListBoxInterface {
@@ -165,7 +174,7 @@ export const DialogModal: React.FC<DialogModalInterface> = ({
   <Transition appear show={isOpen} as={Fragment}>
     <Dialog
       as="div"
-      className="fixed inset-0 z-10 overflow-y-auto"
+      className="fixed inset-0 z-30 overflow-y-auto"
       onClose={() => setIsOpen(false)}
     >
       <div className="min-h-screen px-4 text-center">
@@ -192,3 +201,71 @@ export const DialogModal: React.FC<DialogModalInterface> = ({
     </Dialog>
   </Transition>
 );
+
+export const ConfirmDialog: React.FC<ConfirmDialogInterface> = ({
+  isOpen,
+  setConfirmDialog,
+  onAccept,
+  description,
+}) => {
+  const closeModal = () => {
+    setConfirmDialog(defaultConfirmDialogSetup);
+  };
+
+  return (
+    <Transition appear show={isOpen} as={Fragment}>
+      <Dialog
+        as="div"
+        className="fixed inset-0 z-40 overflow-y-auto"
+        onClose={closeModal}
+      >
+        <div className="min-h-screen px-4 text-center">
+          <Dialog.Overlay className="fixed inset-0 bg-black opacity-80" />
+
+          <span
+            className="inline-block h-screen align-middle"
+            aria-hidden="true"
+          >
+            &#8203;
+          </span>
+
+          <div className="inline-block [w-full] max-w-sm p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+            <Dialog.Title
+              as="h2"
+              className="text-2xl tracking-tight text-center font-medium leading-6 text-gray-900"
+            >
+              Are you sure?
+            </Dialog.Title>
+            {description && (
+              <div className="my-4">
+                <p className="text-sm tracking-wide leading-relaxed text-center text-gray-500">
+                  {description}
+                </p>
+              </div>
+            )}
+
+            <div className="mt-4 flex justify-center space-x-4">
+              <button
+                type="button"
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-transparent rounded-md hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500"
+                onClick={closeModal}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                onClick={() => {
+                  onAccept();
+                  closeModal();
+                }}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      </Dialog>
+    </Transition>
+  );
+};
