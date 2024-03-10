@@ -16,10 +16,12 @@ export default function Home() {
   return (
     <section className="p-4">
       <h1 className="text-lg">Welcome {displayName?.val ?? "Pal"}!</h1>
-      <div className="btn" onClick={appearToast}>
+      {/* <div className="btn" onClick={appearToast}>
         Open toast
-      </div>
-      <Link href="/settings">Go to Settings</Link>
+      </div> */}
+      <Link href="/settings" shallow>
+        Go to Settings
+      </Link>
     </section>
   );
 }
