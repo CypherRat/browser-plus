@@ -43,6 +43,7 @@ import {
 } from "@/app/_shared/utils";
 import Button from "@/app/_component/Button";
 import { ConfirmDialogProps } from "@/app/_shared/types";
+import DialogComponent from "@/app/_component/CardModal";
 
 export default function Settings() {
   const { displayName } = useContext(DisplayNameContext)!;
@@ -348,6 +349,182 @@ export default function Settings() {
         <Link href="/discover">Go to Discover</Link>
       </div>
       <div className="dialog-modals">
+        {/* <CardModal
+          isOpen={true}
+          setIsOpen={() => {}}
+          // form={{
+          //   mainForm: {
+          //     name: "cardForm",
+          //     title: "Add Card",
+          //     fields: [
+          //       {
+          //         name: "title",
+          //         placeholder: "Title",
+          //         value: "",
+          //         disabled: false,
+          //         type: "text",
+          //       },
+          //       {
+          //         name: "description",
+          //         placeholder: "Description",
+          //         value: "",
+          //         disabled: false,
+          //         type: "text",
+          //       },
+          //       {
+          //         name: "Add URL",
+          //         type: "button",
+          //         targetForm: "urlForm",
+          //       },
+          //     ],
+          //   },
+          //   supportingForm: {
+          //     name: "urlForm",
+          //     title: "Add URL",
+          //     fields: [
+          //       {
+          //         name: "url",
+          //         placeholder: "URL",
+          //         value: "",
+          //         disabled: false,
+          //         type: "text",
+          //       },
+          //       {
+          //         name: "urlTitle",
+          //         placeholder: "URL Title",
+          //         value: "",
+          //         disabled: false,
+          //         type: "text",
+          //       },
+          //     ],
+          //   },
+          // }}
+          form={{
+            mainForm: {
+              name: "cardForm",
+              title: "Add Card",
+              fields: [
+                {
+                  name: "title",
+                  placeholder: "Title",
+                  value: "",
+                  disabled: false,
+                  type: "text",
+                },
+                {
+                  name: "description",
+                  placeholder: "Description",
+                  value: "",
+                  disabled: false,
+                  type: "text",
+                },
+                {
+                  name: "Add URL",
+                  type: "button",
+                  targetForm: "urlForm",
+                },
+                {
+                  name: "View URLs",
+                  type: "button",
+                  targetForm: "viewUrlForm",
+                },
+              ],
+            },
+            supportingForm: {
+              name: "urlForm",
+              title: "Add URL",
+              fields: [
+                {
+                  name: "url",
+                  placeholder: "URL",
+                  value: "",
+                  disabled: false,
+                  type: "text",
+                },
+                {
+                  name: "urlTitle",
+                  placeholder: "URL Title",
+                  value: "",
+                  disabled: false,
+                  type: "text",
+                },
+              ],
+            },
+            viewUrlForm: {
+              name: "viewUrlForm",
+              title: "View URLs",
+              fields: [
+                {
+                  id: 1,
+                  name: "url1",
+                  placeholder: "URL",
+                  value: "https://example.com",
+                  disabled: false,
+                  type: "text",
+                },
+                {
+                  id: 1,
+                  name: "urlTitle1",
+                  placeholder: "URL Title",
+                  value: "Example",
+                  disabled: false,
+                  type: "text",
+                },
+              ],
+            },
+          }}
+        /> */}
+        <DialogComponent
+          isOpen={false}
+          setIsOpen={() => {}}
+          formProps={{
+            name: "sampleForm",
+            title: "Sample Form",
+            fields: [
+              {
+                name: "firstName",
+                placeholder: "First Name",
+                value: "",
+                disabled: false,
+                type: "text",
+              },
+              {
+                name: "lastName",
+                placeholder: "Last Name",
+                value: "",
+                disabled: false,
+                type: "text",
+              },
+              {
+                name: "Open Supporting Form",
+                type: "button",
+                targetForm: "supportingForm",
+              },
+            ],
+            supportingForm: {
+              name: "supportingForm",
+              title: "Supporting Form",
+              fields: [
+                {
+                  name: "email",
+                  placeholder: "Email",
+                  value: "",
+                  disabled: false,
+                  type: "text",
+                },
+                {
+                  name: "phone",
+                  placeholder: "Phone",
+                  value: "",
+                  disabled: false,
+                  type: "text",
+                },
+              ],
+            },
+          }}
+          onSave={() => {}}
+          settings={settings?.sesttings?.cards}
+        />
         <DialogModal
           isOpen={isImportModalOpen}
           setIsOpen={setIsImportModalOpen}

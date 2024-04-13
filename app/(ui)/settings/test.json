@@ -14,5 +14,52 @@
       }
     ],
     "links": [{ "id": 1, "title": null, "url": null }]
+  },
+  "form": {
+    "mainForm": {
+      "name": "cardForm",
+      "title": "Add Card",
+      "fields": [
+        {
+          "name": "title",
+          "placeholder": "Title",
+          "value": "",
+          "disabled": false,
+          "type": "text"
+        },
+        {
+          "name": "description",
+          "placeholder": "Description",
+          "value": "",
+          "disabled": false,
+          "type": "text"
+        },
+        {
+          "name": "Add URL",
+          "type": "button",
+          "targetForm": "urlForm"
+        }
+      ]
+    },
+    "supportingForm": {
+      "name": "urlForm",
+      "title": "Add URL",
+      "fields": [
+        {
+          "name": "url",
+          "placeholder": "URL",
+          "value": "",
+          "disabled": false,
+          "type": "text"
+        },
+        {
+          "name": "urlTitle",
+          "placeholder": "URL Title",
+          "value": "",
+          "disabled": false,
+          "type": "text"
+        }
+      ]
+    }
   }
 }
