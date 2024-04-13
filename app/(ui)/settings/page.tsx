@@ -1,5 +1,6 @@
 "use client";
 import { useContext, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCog,
@@ -12,9 +13,10 @@ import {
   faTable,
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
-import { DisplayNameContext } from "@/app/_context/DisplayName";
-import Link from "next/link";
+import toast from "react-hot-toast";
 import { Switch } from "@headlessui/react";
+import { DisplayNameContext } from "@/app/_context/DisplayName";
+import { SettingsContext } from "@/app/_context/Settings";
 import DisplayNameModal from "@/app/_component/DisplayNameModal";
 import {
   ConfirmDialog,
@@ -22,20 +24,21 @@ import {
   DialogModal,
   SettingRow,
 } from "./_utils";
-import toast from "react-hot-toast";
 import {
+  PAGE_DETAILS,
   clockVals,
   dateTimeFormatVals,
   searchEngineVals,
   yesNoVals,
 } from "./_constants";
-import { SettingsContext } from "@/app/_context/Settings";
 import {
-  defaultConfirmDialogSetup,
   initialSettings,
+  defaultConfirmDialogSetup,
+  APP_DETAILS,
 } from "@/app/_shared/constants";
 import {
   isValidImportStructure,
+  title,
   updateNestedObject,
 } from "@/app/_shared/utils";
 import Button from "@/app/_component/Button";
@@ -45,9 +48,7 @@ export default function Settings() {
   const { displayName } = useContext(DisplayNameContext)!;
   const { settings, setSettings } = useContext(SettingsContext)!;
 
-  const [darkMode, setDarkMode] = useState(
-    settings?.settings?.darkMode ?? true
-  );
+  const [darkMode, setDarkMode] = useState(true);
   const [changeNameStatus, setChangeNameStatus] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<ConfirmDialogProps>(
     defaultConfirmDialogSetup
@@ -60,6 +61,8 @@ export default function Settings() {
 
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const [isHeadingSticky, setIsHeadingSticky] = useState(false);
+
+  const defaultSettings = JSON.parse(JSON.stringify(initialSettings));
 
   useEffect(() => {
     const checkStickiness = () => {
@@ -74,6 +77,10 @@ export default function Settings() {
       window.removeEventListener("scroll", checkStickiness);
     };
   }, []);
+
+  useEffect(() => {
+    setDarkMode(settings?.settings?.darkMode ?? true);
+  }, [settings?.settings?.darkMode]);
 
   const handleFileChange = (event: any) => {
     setSelectedFile(event.target.files[0]);
@@ -184,7 +191,7 @@ export default function Settings() {
 
   const handleResetSettings = () => {
     const resetSettings = () => {
-      setSettings(initialSettings);
+      setSettings(defaultSettings);
       toast.success("Successfully reset settings");
     };
     setConfirmDialog({
@@ -207,7 +214,7 @@ export default function Settings() {
   return changeNameStatus ? (
     <DisplayNameModal supportingBoolFn={setChangeNameStatus} />
   ) : (
-    <div className="p-4 md:px-20 lg:px-40 md:py-12">
+    <section className="p-4 md:px-20 lg:px-40 md:py-12">
       <Link href="/" className="text-gray-400 lg:sticky lg:top-4">
         <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
         Go Back
@@ -222,7 +229,7 @@ export default function Settings() {
         } z-20 sticky top-4 lg:top-12 `}
       >
         <FontAwesomeIcon icon={faCog} className="mr-2" />
-        Browser Plus Settings
+        {title(APP_DETAILS.name, PAGE_DETAILS.title)}
       </h1>
       <div className="mt-4">
         <SettingRow title="Name">
@@ -314,49 +321,31 @@ export default function Settings() {
           <Button icon={faUpload} onClick={() => setIsImportModalOpen(true)}>
             Import
           </Button>
-          {/* <button
-            onClick={() => setIsImportModalOpen(true)}
-            className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
-          >
-            <FontAwesomeIcon icon={faUpload} className="mr-2" />
-            Import
-          </button> */}
         </SettingRow>
         <SettingRow title="Export Settings">
           <Button icon={faDownload} onClick={() => setIsExportModalOpen(true)}>
             Export
           </Button>
-          {/* <button
-            onClick={() => setIsExportModalOpen(true)}
-            className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
-          >
-            <FontAwesomeIcon icon={faDownload} className="mr-2" />
-            Export
-          </button> */}
         </SettingRow>
         <SettingRow title="Reset/ Repair">
           <Button icon={faWrench} variant="error" onClick={handleResetSettings}>
             Reset Settings
           </Button>
-          {/* <button
-            onClick={handleResetSettings}
-            className="bg-red-700 hover:bg-red-900 text-white text-sm font-bold py-2 px-4 rounded"
-          >
-            <FontAwesomeIcon icon={faWrench} className="mr-2" />
-            Reset Settings
-          </button> */}
         </SettingRow>
         <SettingRow title="About">
           <div className="flex flex-row gap-2 items-center flex-wrap">
-            <span> BrowserPlus Alpha v1</span>
+            <span>
+              {title(APP_DETAILS.name, APP_DETAILS.stage, APP_DETAILS.version)}
+            </span>
             <Link
               href="https://github.com/CypherRat/browser-plus/releases"
               className="text-gray-400 text-sm"
             >
               Check for Update
-            </Link>{" "}
+            </Link>
           </div>
         </SettingRow>
+        <Link href="/discover">Go to Discover</Link>
       </div>
       <div className="dialog-modals">
         <DialogModal
@@ -409,6 +398,6 @@ export default function Settings() {
           onAccept={confirmDialog?.onAccept}
         />
       </div>
-    </div>
+    </section>
   );
 }

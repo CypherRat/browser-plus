@@ -39,6 +39,11 @@ const DisplayNameModal: React.FC<DisplayNameModalProps> = ({
     }
   };
 
+  const handleClose = () => {
+    setModalIsOpen(false);
+    workSupportingBookFn(false);
+  };
+
   const handleSkip = () => {
     const jsonBucket = { isNameSkipped: true, val: null };
     if (name.trim().length === 0) {
@@ -106,8 +111,21 @@ const DisplayNameModal: React.FC<DisplayNameModalProps> = ({
                 Save
               </button>
             </form>
-            <div className="text-sm cursor-pointer" onClick={handleSkip}>
-              Skip
+            <div className="flex flex-row gap-2">
+              <div
+                className="text-sm cursor-pointer font-medium text-gray-600 hover:text-gray-800"
+                onClick={handleSkip}
+              >
+                Skip
+              </div>
+              {!displayName?.isNameSkipped && (
+                <div
+                  className="text-sm cursor-pointer text-red-600 hover:text-red-800"
+                  onClick={handleClose}
+                >
+                  Close
+                </div>
+              )}
             </div>
           </div>
         </div>

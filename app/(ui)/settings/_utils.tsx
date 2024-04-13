@@ -88,7 +88,7 @@ export const CustomListbox: React.FC<ListBoxInterface> = ({
       setSelectedOption(matchingOption);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [settings]);
 
   return (
     <Listbox value={selectedOption} onChange={handleOptionUpdate}>

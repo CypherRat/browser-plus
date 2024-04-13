@@ -19,9 +19,7 @@ export default function Home() {
       {/* <div className="btn" onClick={appearToast}>
         Open toast
       </div> */}
-      <Link href="/settings" shallow>
-        Go to Settings
-      </Link>
+      <Link href="/settings">Go to Settings</Link>
     </section>
   );
 }
