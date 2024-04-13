@@ -7,13 +7,14 @@ import UILayout from "./(ui)/layout";
 import { Toaster } from "react-hot-toast";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config as faConfig } from "@fortawesome/fontawesome-svg-core";
+import { APP_DETAILS } from "./_shared/constants";
 
 faConfig.autoAddCss = false;
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Browser Plus",
-  description: "Making the browser window more like you.",
+  title: APP_DETAILS.name,
+  description: APP_DETAILS.description,
 };
 
 export default function RootLayout({
