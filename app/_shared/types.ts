@@ -1,7 +1,32 @@
-export type ClockType = "Digital" | "Analog";
-export type DateTimeFormatType = "12hr" | "24hr";
-export type FocusModeType = "Yes" | "No";
-export type SearchEngineType = "Google" | "Bing" | "DuckDuckGo" | "Yahoo";
+import {
+  CLOCK_TYPES,
+  DATE_TIME_FORMATS,
+  FOCUS_MODES,
+  SEARCH_ENGINES,
+  STAGES,
+  STATUSES,
+} from "./globalValues";
+
+export type AppVersion = `${number}.${number}.${number}`;
+export type ClockType = (typeof CLOCK_TYPES)[number];
+export type DateTimeFormatType = (typeof DATE_TIME_FORMATS)[number];
+export type FocusModeType = (typeof FOCUS_MODES)[number];
+export type SearchEngineType = (typeof SEARCH_ENGINES)[number];
+export type StageType = (typeof STAGES)[number];
+export type StatusType = (typeof STATUSES)[number];
+
+export type SettingImportDSObjectType = {
+  type: string;
+  values?: string[];
+  structure?: object;
+};
+
+export interface AppProps {
+  name: string;
+  stage: StageType;
+  version: AppVersion;
+  description: string;
+}
 
 export interface URLProps {
   id: number;
@@ -39,4 +64,10 @@ export interface ConfirmDialogProps {
   isOpen: boolean;
   description?: string | null;
   onAccept: () => void;
+}
+
+export interface SettingsImportDS {
+  settings: {
+    [key: string]: SettingImportDSObjectType;
+  };
 }
