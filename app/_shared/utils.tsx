@@ -118,3 +118,19 @@ export const isValidImportStructure = (obj: any): obj is InitialSettings => {
 
   return obj && obj.settings && isValidSettings(obj.settings);
 };
+
+export function title(...props: string[]): string {
+  if (props && props?.length === 0) return "Untitled";
+  const capitalizedProps = props
+    .filter((prop) => typeof prop === "string" && prop.trim() !== "")
+    .map((phrase) =>
+      phrase
+        .split(" ")
+        .map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        )
+        .join(" ")
+    );
+
+  return capitalizedProps.join(" ");
+}
