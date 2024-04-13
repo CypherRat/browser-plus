@@ -2,7 +2,16 @@ import {
   ConfirmDialogProps,
   InitialDisplayName,
   InitialSettings,
+  AppProps,
+  SettingsImportDS,
 } from "./types";
+
+export const APP_DETAILS: AppProps = {
+  name: "Browser Plus",
+  stage: "Alpha",
+  description: "Making the browser window more like your own personal space.",
+  version: "0.1.0",
+};
 
 export const initialSettings: InitialSettings = {
   settings: {
@@ -21,7 +30,7 @@ export const initialDisplayName: InitialDisplayName = {
   val: null,
 };
 
-export const settingsImportDataStructure = {
+export const settingsImportDataStructure: SettingsImportDS = {
   settings: {
     darkMode: { type: "boolean" },
     clock: { type: "string", values: ["Digital", "Analog"] },
