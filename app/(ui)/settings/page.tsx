@@ -42,9 +42,7 @@ import {
   updateNestedObject,
 } from "@/app/_shared/utils";
 import Button from "@/app/_component/Button";
-import DialogComponent from "@/app/_component/CardModal";
 import { ConfirmDialogProps } from "@/app/_shared/types";
-import CardModal from "@/app/_component/CardModal";
 
 export default function Settings() {
   const { displayName } = useContext(DisplayNameContext)!;
