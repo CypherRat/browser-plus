@@ -27,9 +27,10 @@ const DisplayNameModal: React.FC<DisplayNameModalProps> = ({
     if (supportingBoolFn) supportingBoolFn(boolState);
   };
 
-  const handleSave = () => {
-    if (name.length) {
-      const jsonBucket = { isNameSkipped: false, val: name };
+  const handleSave = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    if (name.trim().length) {
+      const jsonBucket = { isNameSkipped: false, val: name.trim() };
       setDisplayName(jsonBucket);
       toast.success("Successfully saved display name");
       setModalIsOpen(false);
@@ -37,6 +38,10 @@ const DisplayNameModal: React.FC<DisplayNameModalProps> = ({
     } else {
       toast.error("Display name is required on save");
     }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
   };
 
   const handleClose = () => {
@@ -99,14 +104,14 @@ const DisplayNameModal: React.FC<DisplayNameModalProps> = ({
                 placeholder="Enter Display Name"
                 value={name}
                 autoFocus
-                onChange={(e) => setName(e.target.value)}
+                onChange={handleChange}
                 className="border border-gray-400 py-3 px-3 w-full outline-none"
               />
               <button
                 type="submit"
                 onClick={handleSave}
                 className="bg-indigo-800 text-white py-2 px-4 hover:bg-indigo-700 transition duration-200 disabled:bg-gray-400"
-                disabled={name.length === 0}
+                disabled={name.trim().length === 0}
               >
                 Save
               </button>
