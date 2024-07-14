@@ -24,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   count,
 }) => {
   const buttonStyle =
-    type === "filled" ? "text-white" : "text-white bg-transparent border";
+    type === "filled" ? "text-white" : "text-white dark:bg-transparent border";
   const variantStyles = {
     success:
       "bg-green-500 border-green-500 hover:bg-green-700 hover:border-green-700",
