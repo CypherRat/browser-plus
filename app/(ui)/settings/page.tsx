@@ -103,6 +103,11 @@ export default function Settings() {
           try {
             const json = JSON.parse(event.target.result);
             if (isValidImportStructure(json)) {
+              setTheme(
+                json?.settings?.darkMode
+                  ? UTILITY_KEYS.THEMES.dark
+                  : UTILITY_KEYS.THEMES.light
+              );
               setSettings(json);
               toast.success("Successfully imported settings");
               // setIsImportModalOpen(false);
@@ -173,6 +178,11 @@ export default function Settings() {
       document.body.appendChild(downloadAnchorNode);
       downloadAnchorNode.click();
       downloadAnchorNode.remove();
+      if (downloadAnchorNode) {
+        setExportFileName("");
+        setIsExportModalOpen(false);
+        toast.success("Successfully exported settings");
+      }
     } else {
       toast.error("Enter export file name");
     }
