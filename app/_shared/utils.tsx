@@ -57,6 +57,7 @@ export const isValidImportStructure = (obj: any): obj is InitialSettings => {
     "Bing",
     "DuckDuckGo",
     "Yahoo",
+    "Perplexity",
   ];
 
   const isValidURL = (url: string): boolean => {
