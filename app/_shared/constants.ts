@@ -4,6 +4,7 @@ import {
   InitialSettings,
   AppProps,
   SettingsImportDS,
+  ThemeOptions,
 } from "./types";
 
 export const APP_DETAILS: AppProps = {
@@ -71,4 +72,8 @@ export const defaultConfirmDialogSetup: ConfirmDialogProps = {
   isOpen: false,
   description: null,
   onAccept: () => {},
+};
+
+export const UTILITY_KEYS: ThemeOptions = {
+  THEMES: { dark: "dark", light: "light", system: "system" },
 };
