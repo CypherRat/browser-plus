@@ -5,6 +5,7 @@ import {
   SEARCH_ENGINES,
   STAGES,
   STATUSES,
+  THEMES,
 } from "./globalValues";
 
 export type AppVersion = `${number}.${number}.${number}`;
@@ -14,6 +15,7 @@ export type FocusModeType = (typeof FOCUS_MODES)[number];
 export type SearchEngineType = (typeof SEARCH_ENGINES)[number];
 export type StageType = (typeof STAGES)[number];
 export type StatusType = (typeof STATUSES)[number];
+export type ThemeType = (typeof THEMES)[number];
 
 export type SettingImportDSObjectType = {
   type: string;
@@ -69,5 +71,10 @@ export interface ConfirmDialogProps {
 export interface SettingsImportDS {
   settings: {
     [key: string]: SettingImportDSObjectType;
+  };
+}
+export interface ThemeOptions {
+  THEMES: {
+    [key in ThemeType]: string;
   };
 }

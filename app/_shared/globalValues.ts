@@ -10,3 +10,4 @@ export const SEARCH_ENGINES = [
 ] as const;
 export const STAGES = ["Alpha", "Beta", "Gama", "Delta"] as const;
 export const STATUSES = ["Yes", "No"] as const;
+export const THEMES = ["dark", "light", "system"] as const;

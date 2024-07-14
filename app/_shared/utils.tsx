@@ -134,3 +134,7 @@ export function title(...props: string[]): string {
 
   return capitalizedProps.join(" ");
 }
+
+export const delay = (ms: number = 1000) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};

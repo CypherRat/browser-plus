@@ -14,6 +14,7 @@ import {
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
+import { useTheme } from "next-themes";
 import { Switch } from "@headlessui/react";
 import { DisplayNameContext } from "@/app/_context/DisplayName";
 import { SettingsContext } from "@/app/_context/Settings";
@@ -35,6 +36,7 @@ import {
   initialSettings,
   defaultConfirmDialogSetup,
   APP_DETAILS,
+  UTILITY_KEYS,
 } from "@/app/_shared/constants";
 import {
   isValidImportStructure,
@@ -45,6 +47,7 @@ import Button from "@/app/_component/Button";
 import { ConfirmDialogProps } from "@/app/_shared/types";
 
 export default function Settings() {
+  const { setTheme, resolvedTheme } = useTheme();
   const { displayName } = useContext(DisplayNameContext)!;
   const { settings, setSettings } = useContext(SettingsContext)!;
 
@@ -79,8 +82,8 @@ export default function Settings() {
   }, []);
 
   useEffect(() => {
-    setDarkMode(settings?.settings?.darkMode ?? true);
-  }, [settings?.settings?.darkMode]);
+    setDarkMode(settings?.settings?.darkMode ?? (resolvedTheme || true));
+  }, [settings?.settings?.darkMode, resolvedTheme]);
 
   const handleFileChange = (event: any) => {
     setSelectedFile(event.target.files[0]);
@@ -177,6 +180,7 @@ export default function Settings() {
 
   const handleDarkModeToggle = (mode: boolean) => {
     setDarkMode(mode);
+    setTheme(mode ? UTILITY_KEYS.THEMES.dark : UTILITY_KEYS.THEMES.light);
     const updatedSettings = updateNestedObject(
       settings,
       "settings.darkMode",
@@ -192,6 +196,7 @@ export default function Settings() {
   const handleResetSettings = () => {
     const resetSettings = () => {
       setSettings(defaultSettings);
+      setTheme(UTILITY_KEYS.THEMES.dark);
       toast.success("Successfully reset settings");
     };
     setConfirmDialog({
@@ -215,17 +220,20 @@ export default function Settings() {
     <DisplayNameModal supportingBoolFn={setChangeNameStatus} />
   ) : (
     <section className="p-4 md:px-20 lg:px-40 md:py-12">
-      <Link href="/" className="text-gray-400 lg:sticky lg:top-4">
+      <Link
+        href="/"
+        className="text-gray-800 dark:text-gray-400 lg:sticky lg:top-4"
+      >
         <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
         Go Back
       </Link>
       <h1
         ref={headingRef}
-        className={`mt-2 text-2xl bg-white p-3 rounded-lg transition-all cursor-pointer
+        className={`mt-2 text-2xl bg-gray-400 dark:bg-white p-3 rounded-lg transition-all cursor-pointer
         ${
           isHeadingSticky
             ? "bg-opacity-90 text-black drop-shadow-[0_25px_25px_rgba(196,182,252,0.25)]"
-            : "bg-opacity-10 text-white"
+            : "bg-opacity-60 dark:bg-opacity-10 text-black dark:text-white"
         } z-20 sticky top-4 lg:top-12 `}
       >
         <FontAwesomeIcon icon={faCog} className="mr-2" />

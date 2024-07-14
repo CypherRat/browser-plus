@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config as faConfig } from "@fortawesome/fontawesome-svg-core";
 import { APP_DETAILS } from "./_shared/constants";
+import { ThemeProviders } from "./theme-provider";
 
 faConfig.autoAddCss = false;
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
@@ -23,14 +24,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={poppins.className} id="my-browser-window">
-        <SettingsProvider>
-          <DisplayNameProvider>
-            <Toaster />
-            <UILayout>{children}</UILayout>
-          </DisplayNameProvider>
-        </SettingsProvider>
+        <ThemeProviders>
+          <SettingsProvider>
+            <DisplayNameProvider>
+              <Toaster />
+              <UILayout>{children}</UILayout>
+            </DisplayNameProvider>
+          </SettingsProvider>
+        </ThemeProviders>
       </body>
     </html>
   );
