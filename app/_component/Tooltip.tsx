@@ -35,7 +35,10 @@ const Tooltip: React.FC<TooltipProps> = ({
   return (
     <div className="relative group cursor-help inline-flex items-center">
       {children}
-      <FontAwesomeIcon icon={faInfoCircle} className="ml-1" />
+      <FontAwesomeIcon
+        icon={faInfoCircle}
+        className="ml-1 text-accent-1 dark:text-white"
+      />
       <div
         className={`${baseClasses} ${colorClasses} ${positionClasses}`}
         role="tooltip"

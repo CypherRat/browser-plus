@@ -93,7 +93,7 @@ export const CustomListbox: React.FC<ListBoxInterface> = ({
   return (
     <Listbox value={selectedOption} onChange={handleOptionUpdate}>
       <div className="relative">
-        <Listbox.Button className="relative text-black cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+        <Listbox.Button className="relative text-secondary cursor-default rounded-lg bg-secondary-bg py-2 pl-3 pr-10 text-left shadow-sm shadow-secondary/40 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
           <span className="block truncate">
             {selectedOption ? selectedOption.label : "No Options"}
           </span>
@@ -182,16 +182,16 @@ export const DialogModal: React.FC<DialogModalInterface> = ({
         <span className="inline-block h-screen align-middle" aria-hidden="true">
           &#8203;
         </span>
-        <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+        <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-primary-bg shadow-xl rounded-2xl">
           <Dialog.Title
             as="h3"
-            className="text-lg font-medium leading-6 text-gray-900 font-bold text-center mb-8"
+            className="text-lg font-medium leading-6 text-primary-text font-bold text-center mb-8"
           >
             {title}
             <FontAwesomeIcon
               icon={faTimes}
               onClick={() => setIsOpen(false)}
-              className="cursor-pointer float-right fa-lg text-gray-700"
+              className="cursor-pointer float-right fa-lg text-secondary-text"
             />
           </Dialog.Title>
 
