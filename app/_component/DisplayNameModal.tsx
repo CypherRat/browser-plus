@@ -48,6 +48,10 @@ const DisplayNameModal: React.FC<DisplayNameModalProps> = ({
   const handleClose = () => {
     setModalIsOpen(false);
     workSupportingBookFn(false);
+    if (!displayName?.isNameSkipped && name.trim().length === 0) {
+      const jsonBucket = { isNameSkipped: true, val: null };
+      setDisplayName(jsonBucket);
+    }
   };
 
   const handleSkip = () => {
