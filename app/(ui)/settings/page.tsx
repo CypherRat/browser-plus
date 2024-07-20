@@ -230,20 +230,16 @@ export default function Settings() {
     <DisplayNameModal supportingBoolFn={setChangeNameStatus} />
   ) : (
     <section className="p-4 md:px-20 lg:px-40 md:py-12">
-      <Link
-        href="/"
-        className="text-gray-800 dark:text-gray-400 lg:sticky lg:top-4"
-      >
+      <Link href="/" className="text-secondary-text lg:sticky lg:top-4">
         <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
         Go Back
       </Link>
       <h1
         ref={headingRef}
-        className={`mt-2 text-2xl bg-gray-400 dark:bg-white p-3 rounded-lg transition-all cursor-pointer
+        className={`mt-2 text-2xl bg-accent-2 p-3 rounded-lg transition-all cursor-pointer text-black dark:text-white
         ${
-          isHeadingSticky
-            ? "bg-opacity-90 text-black drop-shadow-[0_25px_25px_rgba(196,182,252,0.25)]"
-            : "bg-opacity-60 dark:bg-opacity-10 text-black dark:text-white"
+          isHeadingSticky &&
+          "!bg-accent-3/95 drop-shadow-[0_25px_25px_rgba(196,182,252,0.1)]"
         } z-20 sticky top-4 lg:top-12 `}
       >
         <FontAwesomeIcon icon={faCog} className="mr-2" />
@@ -256,7 +252,7 @@ export default function Settings() {
             <FontAwesomeIcon
               icon={faPencilAlt}
               onClick={handleNameChange}
-              className="cursor-pointer ml-2"
+              className="cursor-pointer ml-2 text-accent-1 dark:text-white"
             />
           </div>
         </SettingRow>
@@ -264,9 +260,7 @@ export default function Settings() {
           <Switch
             checked={darkMode}
             onChange={handleDarkModeToggle}
-            className={`${
-              darkMode ? "bg-blue-600" : "bg-gray-200"
-            } relative inline-flex items-center h-6 rounded-full w-11 transition-colors duration-200 ease-in-out`}
+            className={`bg-accent-2 shadow-[inset_0_-2px_2px_rgb(var(--accent-3))] dark:shadow-sm dark:shadow-secondary/40 relative inline-flex items-center h-6 rounded-full w-11 transition-colors duration-200 ease-in-out`}
           >
             <span className="sr-only">Enable Dark Mode</span>
             <span
@@ -352,12 +346,12 @@ export default function Settings() {
         </SettingRow>
         <SettingRow title="About">
           <div className="flex flex-row gap-2 items-center flex-wrap">
-            <span>
+            <span className="text-secondary-text">
               {title(APP_DETAILS.name, APP_DETAILS.stage, APP_DETAILS.version)}
             </span>
             <Link
               href="https://github.com/CypherRat/browser-plus/releases"
-              className="text-gray-400 text-sm"
+              className="text-secondary text-sm border px-2 py-1 rounded-lg"
             >
               Check for Update
             </Link>
@@ -375,17 +369,24 @@ export default function Settings() {
             type="file"
             accept=".json"
             onChange={handleFileChange}
-            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+            className="w-full px-3 py-2 text-secondary-text border rounded-lg focus:outline-none"
             style={{ transition: "all .15s ease" }}
           />
-          <button
+          <Button
+            extraStyles="mt-4 float-right"
+            onClick={handleImport}
+            icon={faUpload}
+          >
+            Import
+          </Button>
+          {/* <button
             type="button"
             onClick={handleImport}
             className="mt-4 float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             <FontAwesomeIcon icon={faUpload} className="mr-2" />
             Import
-          </button>
+          </button> */}
         </DialogModal>
         <DialogModal
           isOpen={isExportModalOpen}
@@ -398,15 +399,21 @@ export default function Settings() {
               value={exportFileName}
               onChange={handleExportFileNameChange}
               placeholder="Enter export file name"
-              className="shadow appearance-none border-t border-b border-l rounded-l w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border-t border-b border-l rounded-l w-full py-2 px-3 text-secondary-text leading-tight focus:outline-none focus:shadow-outline"
             />
-            <button
+            <Button
+              onClick={handleExport}
+              extraStyles="!rounded-none !rounded-r"
+            >
+              Export
+            </Button>
+            {/* <button
               type="button"
               onClick={handleExport}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r"
             >
               Export
-            </button>
+            </button> */}
           </div>
         </DialogModal>
         <ConfirmDialog

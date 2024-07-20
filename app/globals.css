@@ -4,16 +4,34 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@layer base {
+  :root {
+    --primary-background: 240 255 241; /* Honeydew */
+    --primary-text-color: 131 103 199; /* Amethyst */
+    --secondary-background: 250 248 239; /* Neutral Background */
+    --secondary-text-color: 119 110 101; /* Subtle Text Color */
+    --accent-1: 86 3 173; /* Accent Blue */
+    --accent-2: 194 248 203; /* Accent Green */
+    --accent-3: 179 233 199; /* Accent Pale Green */
+    --secondary: 18 18 18;
+    --border: rgba(0, 0, 0, 0.5);
+    --button-bg: 131 103 199;
+    --button-bg-hover: 86 3 173;
+  }
 
-.dark {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+  .dark {
+    --primary-background: 18 18 18; /* Dark Surface */
+    --primary-text-color: 240 255 241; /* On Background */
+    --secondary-background: 26 22 37; /* Dark Neutral Background */
+    --secondary-text-color: 144 141 150; /* Subtle Text Color */
+    --accent-1: 26 22 37; /* Accent Blue */
+    --accent-2: 47 43 58; /* Accent Green */
+    --accent-3: 70 66 79; /* Accent Pale Green */
+    --secondary: 240 255 241;
+    --border: rgba(0, 0, 0, 0.5);
+    --button-bg: 18 18 18;
+    --button-bg-hover: 26 22 37;
+  }
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -25,12 +43,12 @@
 } */
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: rgb(var(--primary-text-color));
   background: linear-gradient(
       to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
+      rgb(var(--primary-background))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--secondary-background));
   min-height: 100dvh;
 }
