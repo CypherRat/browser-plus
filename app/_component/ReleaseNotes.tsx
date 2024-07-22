@@ -59,7 +59,7 @@ const ReleaseNotes: React.FC<ReleaseNotesProps> = ({
               pre: PreBlock,
             },
           }}
-          className="text-secondary-text"
+          className="text-secondary-text prose prose-h1:text-4xl prose-h1:text-primary-text prose-h2:text-secondary-text prose-h3:text-secondary prose-h4:text-secondary prose-p:text-base prose-strong:text-accent-1 prose-ul:list-decimal prose-ul:text-secondary-text"
         >
           {content || "No release note details available."}
         </Markdown>
