@@ -14,6 +14,8 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@headlessui/react": "^1.7.17",
     "@types/react-modal": "^3.16.2",
+    "gray-matter": "^4.0.3",
+    "markdown-to-jsx": "^7.4.7",
     "next": "^14.2.5",
     "next-themes": "^0.3.0",
     "nookies": "^2.5.2",
