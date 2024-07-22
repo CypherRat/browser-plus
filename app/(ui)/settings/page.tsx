@@ -344,6 +344,11 @@ export default function Settings() {
             Reset Settings
           </Button>
         </SettingRow>
+        <SettingRow title="Info">
+          <Link href="/release_updates" className="text-secondary-text">
+            What&apos;s new in v{APP_DETAILS.version}?
+          </Link>
+        </SettingRow>
         <SettingRow title="About">
           <div className="flex flex-row gap-2 items-center flex-wrap">
             <span className="text-secondary-text">
