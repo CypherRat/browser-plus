@@ -115,7 +115,7 @@ const DisplayNameModal: React.FC<DisplayNameModalProps> = ({
               <button
                 type="submit"
                 onClick={handleSave}
-                className="bg-button-bg text-white py-2 px-4 hover:bg-button-hover transition duration-200 disabled:bg-gray-400"
+                className="bg-button-bg dark:border text-white py-2 px-4 hover:bg-button-hover transition duration-200 disabled:bg-gray-400"
                 disabled={name.trim().length === 0}
               >
                 Save
