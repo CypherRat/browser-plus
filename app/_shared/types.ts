@@ -78,3 +78,9 @@ export interface ThemeOptions {
     [key in ThemeType]: string;
   };
 }
+
+export interface ReleaseProps {
+  title: string;
+  date: string;
+  version: AppVersion;
+}
