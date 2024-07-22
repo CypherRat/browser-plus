@@ -1,4 +1,5 @@
 import {
+  AppVersion,
   CardProps,
   ClockType,
   DateTimeFormatType,
@@ -139,3 +140,9 @@ export function title(...props: string[]): string {
 export const delay = (ms: number = 1000) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
+
+export function isValidAppVersion(version: AppVersion): boolean {
+  if (!version) return false;
+  const versionPattern = /^\d+\.\d+\.\d+$/;
+  return versionPattern.test(version);
+}
