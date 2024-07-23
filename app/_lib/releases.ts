@@ -16,6 +16,7 @@ export function getReleaseDetails(
     if (!isValidAppVersion(readAppVersion)) return null;
     const fileName = `${readAppVersion}.md`;
     const fullPath = path.join(releasesDirectory, fileName);
+    if (!fs.existsSync(fullPath)) return null;
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const matterResult = matter(fileContents);
     return matterResult || null;
@@ -25,6 +26,7 @@ export function getReleaseDetails(
 }
 export function getAllReleasesDataList(): ReleaseProps[] | null {
   try {
+    if (!fs.existsSync(releasesDirectory)) return null;
     const fileNames = fs.readdirSync(releasesDirectory);
     const allReleasesData: ReleaseProps[] = fileNames.map((fileName) => {
       const fullPath = path.join(releasesDirectory, fileName);
