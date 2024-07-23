@@ -11,7 +11,7 @@ export const APP_DETAILS: AppProps = {
   name: "Browser Plus",
   stage: "Alpha",
   description: "Making the browser window more like your own personal space.",
-  version: "0.5.0",
+  version: "0.5.1",
 };
 
 export const initialSettings: InitialSettings = {
