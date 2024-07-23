@@ -29,7 +29,7 @@ const ReleaseNotes: React.FC<ReleaseNotesProps> = ({
   const { data, content } = metadata || {};
   const { title, version, date } = data || {};
   return (
-    <div className="bg-primary-bg text-primary-text p-4 md:p-6 min-h-screen flex flex-col gap-4 justify-start">
+    <div className="bg-primary-bg text-primary-text p-4 md:p-6 min-h-full min-h-screen flex flex-col gap-4 justify-start">
       <span className="text-4xl text-center">{APP_DETAILS.name}</span>
       {latestLabel && (
         <h1 className="text-2xl font-semibold text-center">

@@ -11,7 +11,7 @@ const SecondaryHeader = () => {
     router.back();
   };
   return (
-    <header className="md:w-1/2 bg-opacity-40 z-[1100] backdrop-blur-sm mx-auto flex items-center justify-between gap-2 p-4 sticky top-0 md:relative">
+    <header className="md:w-1/2 bg-opacity-40 z-[1100] w-full backdrop-blur-sm mx-auto flex items-center justify-between gap-2 p-4 sticky top-0 md:relative">
       <div
         onClick={goBack}
         className="bg-transparent cursor-pointer text-secondary-text"

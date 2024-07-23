@@ -14,9 +14,9 @@ export default function ReleasesLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="release_box bg-primary-bg">
+    <section className="release_box bg-primary-bg flex flex-col h-[100dvh] h-screen">
       <SecondaryHeader />
-      {children}
+      <div className="grow">{children}</div>
     </section>
   );
 }

@@ -16,7 +16,7 @@ export default function AllReleases() {
   return allReleasesData.length === 0 ? (
     <FallbackMsgComponent icon={faBug} message="No release notes found." />
   ) : (
-    <div className="bg-primary-bg text-primary-text p-4 md:p-6 min-h-screen flex flex-col gap-4 justify-start">
+    <div className="bg-primary-bg text-primary-text p-4 md:p-6 min-h-full min-h-screen flex flex-col gap-4 justify-start">
       <span className="text-4xl pt-8 md:pt-12 text-center">
         {APP_DETAILS.name}
       </span>
