@@ -344,10 +344,24 @@ export default function Settings() {
             Reset Settings
           </Button>
         </SettingRow>
+        <SettingRow title="App Info">
+          <span className="text-secondary-text">
+            {title(APP_DETAILS.name, APP_DETAILS.stage, APP_DETAILS.version)}
+          </span>
+        </SettingRow>
+        <SettingRow title="Release Notes">
+          <Link href="/release_updates" className="text-secondary-text">
+            What&apos;s new in{" "}
+            <span className="text-secondary font-bold">
+              {APP_DETAILS.version}
+            </span>
+            ?
+          </Link>
+        </SettingRow>
         <SettingRow title="About">
           <div className="flex flex-row gap-2 items-center flex-wrap">
             <span className="text-secondary-text">
-              {title(APP_DETAILS.name, APP_DETAILS.stage, APP_DETAILS.version)}
+              Version {APP_DETAILS.version}
             </span>
             <Link
               href="https://github.com/CypherRat/browser-plus/releases"
@@ -356,12 +370,6 @@ export default function Settings() {
               Check for Update
             </Link>
           </div>
-        </SettingRow>
-        <SettingRow title="Info">
-          <Link href="/release_updates" className="text-secondary-text">
-            What&apos;s new in v
-            <span className="text-secondary">{APP_DETAILS.version}</span>?
-          </Link>
         </SettingRow>
         <Link href="/discover">Go to Discover</Link>
       </div>

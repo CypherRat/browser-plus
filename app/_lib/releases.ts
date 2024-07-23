@@ -39,7 +39,7 @@ export function getAllReleasesDataList(): ReleaseProps[] | null {
       };
     });
     return allReleasesData && allReleasesData.length
-      ? allReleasesData.sort((a, b) => a.version.localeCompare(b.version))
+      ? allReleasesData.sort((a, b) => b.version.localeCompare(a.version))
       : null;
   } catch (err) {
     throw new Error("No release information details found.");

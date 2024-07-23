@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 import { ReleaseProps } from "../_shared/types";
+import { APP_DETAILS } from "../_shared/constants";
 
 interface ListProps {
   releases: ReleaseProps[];
@@ -15,7 +16,16 @@ const ReleaseList: React.FC<ListProps> = ({ releases }) => {
           key={release?.version || idx}
           className="bg-accent-2 p-4 rounded-md shadow-md"
         >
-          <Link href={`/release_updates/${release?.version || "all"}`}>
+          <Link
+            href={`/release_updates/${
+              release?.version && release?.version !== APP_DETAILS.version
+                ? release?.version
+                : ""
+            }`}
+          >
+            {release?.version === APP_DETAILS.version && (
+              <span className="text-sm font-bold">Latest Release</span>
+            )}
             <div className="text-primary-text font-semibold text-xl">
               {release?.title || "Untitled"}
             </div>
