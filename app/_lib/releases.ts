@@ -16,10 +16,13 @@ export function getReleaseDetails(
     if (!isValidAppVersion(readAppVersion)) return null;
     const fileName = `${readAppVersion}.md`;
     const fullPath = path.join(releasesDirectory, fileName);
-    if (!fs.existsSync(fullPath)) return null;
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-    const matterResult = matter(fileContents);
-    return matterResult || null;
+    if (fs.existsSync(fullPath)) {
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const matterResult = matter(fileContents);
+      return matterResult || null;
+    } else {
+      throw new Error("Release information unavailable.");
+    }
   } catch (err) {
     throw new Error("Release information unavailable.");
   }
