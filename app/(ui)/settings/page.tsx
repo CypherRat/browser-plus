@@ -357,6 +357,12 @@ export default function Settings() {
             </Link>
           </div>
         </SettingRow>
+        <SettingRow title="Info">
+          <Link href="/release_updates" className="text-secondary-text">
+            What&apos;s new in v
+            <span className="text-secondary">{APP_DETAILS.version}</span>?
+          </Link>
+        </SettingRow>
         <Link href="/discover">Go to Discover</Link>
       </div>
       <div className="dialog-modals">

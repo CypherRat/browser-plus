@@ -11,3 +11,4 @@ export const SEARCH_ENGINES = [
 export const STAGES = ["Alpha", "Beta", "Gama", "Delta"] as const;
 export const STATUSES = ["Yes", "No"] as const;
 export const THEMES = ["dark", "light", "system"] as const;
+export const VERSION_INFO = ["version", "title", "date"] as const;

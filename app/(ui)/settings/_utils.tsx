@@ -47,7 +47,7 @@ export const SettingRow: React.FC<SettingRowInterface> = ({
   children,
   tooltipTitle,
 }) => (
-  <div className="flex justify-between items-start mb-4">
+  <div className="flex justify-between items-start mb-4 select-none">
     <div className="font-semibold flex-shrink-0 w-44">
       {tooltipTitle ? (
         <Tooltip title={tooltipTitle} color="light">
