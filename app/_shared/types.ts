@@ -53,8 +53,17 @@ export interface Settings {
   links: URLProps[];
 }
 
+export interface InitalSetupConfig {
+  activityTime: Date | null;
+}
+
 export interface InitialSettings {
   settings: Settings;
+}
+
+export interface InitialSetup {
+  isFirstTime: boolean;
+  config: InitalSetupConfig;
 }
 
 export interface InitialDisplayName {

@@ -11,6 +11,7 @@ import { SettingsContext } from "@/app/_context/Settings";
 import { getValueFromObject, updateNestedObject } from "@/app/_shared/utils";
 import { ConfirmDialogProps } from "@/app/_shared/types";
 import { defaultConfirmDialogSetup } from "@/app/_shared/constants";
+import { useRouter } from "next/navigation";
 
 interface SettingRowInterface {
   title: string;
@@ -23,6 +24,11 @@ interface DialogModalInterface {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   title: string;
   children: React.ReactNode;
+}
+
+interface InitialSetupInterface {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface ConfirmDialogInterface {
@@ -264,6 +270,71 @@ export const ConfirmDialog: React.FC<ConfirmDialogInterface> = ({
               </button>
             </div>
           </div>
+        </div>
+      </Dialog>
+    </Transition>
+  );
+};
+
+export const InitialSetupDialog: React.FC<InitialSetupInterface> = ({
+  isOpen,
+  setIsOpen,
+}) => {
+  const router = useRouter();
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+  const handleSure = () => {
+    router.push("/settings");
+  };
+  return (
+    <Transition appear show={isOpen} as={Fragment}>
+      <Dialog
+        as="div"
+        className="fixed inset-0 z-10 bg-black/50 flex justify-end items-end sm:p-8 overflow-y-auto"
+        onClose={handleClose}
+      >
+        <div className="text-center w-full sm:w-auto transition-all">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <Dialog.Panel className="relative rounded-lg overflow-hidden shadow-xl transition-all sm:max-w-xs sm:w-full">
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg leading-6 font-medium text-gray-900"
+                    >
+                      Lets setup the app for you
+                    </Dialog.Title>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gray-50 px-4 py-3 sm:px-6 flex justify-center items-center gap-3">
+                <button
+                  type="button"
+                  className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:text-sm"
+                  onClick={handleClose}
+                >
+                  Skip
+                </button>
+                <button
+                  type="button"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:w-auto sm:text-sm"
+                  onClick={handleSure}
+                >
+                  Sure
+                </button>
+              </div>
+            </Dialog.Panel>
+          </Transition.Child>
         </div>
       </Dialog>
     </Transition>

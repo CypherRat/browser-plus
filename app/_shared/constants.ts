@@ -5,6 +5,7 @@ import {
   AppProps,
   SettingsImportDS,
   ThemeOptions,
+  InitialSetup,
 } from "./types";
 
 export const APP_DETAILS: AppProps = {
@@ -23,6 +24,13 @@ export const initialSettings: InitialSettings = {
     defaultSearchEngine: "DuckDuckGo",
     cards: [],
     links: [],
+  },
+};
+
+export const initialSetup: InitialSetup = {
+  isFirstTime: true,
+  config: {
+    activityTime: null,
   },
 };
 
