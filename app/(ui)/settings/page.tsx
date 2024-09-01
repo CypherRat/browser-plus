@@ -45,11 +45,13 @@ import {
 } from "@/app/_shared/utils";
 import Button from "@/app/_component/Button";
 import { ConfirmDialogProps } from "@/app/_shared/types";
+import { SetupContext } from "@/app/_context/Setup";
 
 export default function Settings() {
   const { setTheme, resolvedTheme } = useTheme();
   const { displayName } = useContext(DisplayNameContext)!;
   const { settings, setSettings } = useContext(SettingsContext)!;
+  const { setup, setSetup } = useContext(SetupContext)!;
 
   const [darkMode, setDarkMode] = useState(true);
   const [changeNameStatus, setChangeNameStatus] = useState(false);
@@ -80,6 +82,14 @@ export default function Settings() {
       window.removeEventListener("scroll", checkStickiness);
     };
   }, []);
+
+  useEffect(() => {
+    if (setup?.isFirstTime) {
+      const newSetup = updateNestedObject(setup, "isFirstTime", false);
+      setSetup(newSetup);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setup?.isFirstTime]);
 
   useEffect(() => {
     setDarkMode(settings?.settings?.darkMode ?? (resolvedTheme || true));
